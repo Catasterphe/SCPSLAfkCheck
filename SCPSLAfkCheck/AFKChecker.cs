@@ -81,7 +81,6 @@ namespace SCPSLAfkCheck
         private void Start()
         {
             if (checkingPlayer == null) return;
-            if (PermissionsHandler.IsPermitted((uint)ServerStatic.PermissionsHandler.GetUserGroup(checkingPlayer.UserId).Permissions, PlayerPermissions.AFKImmunity)) return;
             CoroutineHandle AFKHandler = Timing.RunCoroutine(AFKCoroutine().CancelWith(gameObject).CancelWith(this));
         }
         private IEnumerator<float> AFKCoroutine()
