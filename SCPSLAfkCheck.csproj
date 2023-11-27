@@ -68,14 +68,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AFKChecker.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="EventHandler.cs" />
-    <Compile Include="Plugin.cs" />
+    <Compile Include="SCPSLAfkCheck\AFKChecker.cs" />
+    <Compile Include="SCPSLAfkCheck\Config.cs" />
+    <Compile Include="SCPSLAfkCheck\EventHandler.cs" />
+    <Compile Include="SCPSLAfkCheck\Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

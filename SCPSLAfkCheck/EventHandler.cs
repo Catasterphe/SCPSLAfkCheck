@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using PlayerRoles;
+﻿using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp079;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
