@@ -20,7 +20,7 @@ namespace SCPSLAfkCheck
         // 939
         private Scp939FocusAbility scp939Focus;
         // 079
-        private bool replacescp079 = true;
+        private bool replacescp079;
 
         public Player playerToReplace;
         public Vector3 lastPosition, lastRotation;
@@ -81,7 +81,6 @@ namespace SCPSLAfkCheck
         private void Start()
         {
             if (checkingPlayer == null) return;
-            if (PermissionsHandler.IsPermitted((uint)ServerStatic.PermissionsHandler.GetUserGroup(checkingPlayer.UserId).Permissions, PlayerPermissions.AFKImmunity)) return;
             CoroutineHandle AFKHandler = Timing.RunCoroutine(AFKCoroutine().CancelWith(gameObject).CancelWith(this));
         }
         private IEnumerator<float> AFKCoroutine()
@@ -206,16 +205,18 @@ namespace SCPSLAfkCheck
                             tierManager.ServerGrantExperience(totalExp, Scp079HudTranslation.ExpGainAdminCommand);
                             auxManager.CurrentAux = currentEnergy;
                         }
-                        playerToReplace.SendBroadcast(Plugin.Config.ReplaceMsg, 8);
+                        playerToReplace.SendBroadcast(Plugin.Config.ReplaceMsg, 10);
 
                     } else
                     {
                         // could not find a player to replace :(
                         checkingPlayer.ReferenceHub.roleManager.ServerSetRole(RoleTypeId.Spectator, RoleChangeReason.RemoteAdmin);
+                        checkingPlayer.SendBroadcast(Plugin.Config.AFKSpectatorMsg, 10);
                     }
                 } else
                 {
                     checkingPlayer.ReferenceHub.roleManager.ServerSetRole(RoleTypeId.Spectator, RoleChangeReason.RemoteAdmin);
+                    checkingPlayer.SendBroadcast(Plugin.Config.AFKSpectatorMsg, 10);
                 }
                 if (afkCount >= Plugin.Config.AllowedReplacements)
                 {
