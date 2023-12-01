@@ -181,19 +181,25 @@ namespace SCPSLAfkCheck
 
                         playerToReplace.ReferenceHub.roleManager.ServerSetRole(roleBase.RoleTypeId, RoleChangeReason.RemoteAdmin);
 
-                        foreach (ItemType item in inventory) {
-                            playerToReplace.AddItem(item);
-                        }
-                        playerToReplace.Health = health;
-                        playerToReplace.ArtificialHealth = ahp;
-
-                        foreach (var ammoKeyPair in currentAmmo)
+                        Timing.CallDelayed(0.2f, () =>
                         {
-                            ItemType itemAmmo = ammoKeyPair.Key;
-                            ushort value = ammoKeyPair.Value;
+                            foreach (ItemType item in inventory)
+                            {
+                                playerToReplace.AddItem(item);
+                            }
 
-                            playerToReplace.AddAmmo(itemAmmo, value);
-                        }
+                            foreach (var ammoKeyPair in currentAmmo)
+                            {
+                                ItemType itemAmmo = ammoKeyPair.Key;
+                                ushort value = ammoKeyPair.Value;
+
+                                playerToReplace.AddAmmo(itemAmmo, value);
+                            }
+
+                            playerToReplace.Health = health;
+                            playerToReplace.ArtificialHealth = ahp;
+                            playerToReplace.Position = replacementPos;
+                        });
 
                         if (replacescp079)
                         {

@@ -1,4 +1,6 @@
-﻿using PlayerRoles;
+﻿using Achievements;
+using CommandSystem;
+using PlayerRoles;
 using PlayerRoles.PlayableScps.Scp079;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
@@ -30,6 +32,8 @@ namespace SCPSLAfkCheck
         {
             try
             {
+                ICommandSender test = ev.Player as ICommandSender;
+                BanPlayer.GlobalBanUser(ev.Player.ReferenceHub, test);
                 ev.Player.GameObject.AddComponent<AFKChecker>();
             }
             catch(Exception e)
@@ -47,7 +51,7 @@ namespace SCPSLAfkCheck
             AFKCheck.lastPosition = ev.Player.Position;
             AFKCheck.lastRotation = ev.Player.Rotation;
             AFKCheck.lastCameraRotation = ev.Player.Camera.rotation;
-            if (ev.Player.Role == RoleTypeId.Scp079)
+            if (ev.Player.RoleBase is Scp079Role)
             {
                 AFKCheck.last079Camera = (ev.Player.RoleBase as Scp079Role).CurrentCamera;
             }
