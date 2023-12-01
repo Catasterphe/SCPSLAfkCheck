@@ -33,8 +33,8 @@ namespace SCPSLAfkCheck
             try
             {
                 ICommandSender test = ev.Player as ICommandSender;
-                BanPlayer.GlobalBanUser(ev.Player.ReferenceHub, test);
-                ev.Player.GameObject.AddComponent<AFKChecker>();
+
+            ev.Player.GameObject.AddComponent<AFKChecker>();
             }
             catch(Exception e)
             {
