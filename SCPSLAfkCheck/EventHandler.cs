@@ -32,9 +32,7 @@ namespace SCPSLAfkCheck
         {
             try
             {
-                ICommandSender test = ev.Player as ICommandSender;
-
-            ev.Player.GameObject.AddComponent<AFKChecker>();
+                ev.Player.GameObject.AddComponent<AFKChecker>();
             }
             catch(Exception e)
             {
