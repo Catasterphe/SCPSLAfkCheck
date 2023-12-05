@@ -69,14 +69,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SCPSLAfkCheck\AFKChecker.cs" />
-    <Compile Include="SCPSLAfkCheck\Config.cs" />
-    <Compile Include="SCPSLAfkCheck\EventHandler.cs" />
-    <Compile Include="SCPSLAfkCheck\Plugin.cs" />
+    <Compile Include="AFKPlayer\AFKComponent.cs" />
+    <Compile Include="AFKPlayer\PlayerData\AFKData.cs" />
+    <Compile Include="AFKPlayer\AfkPlayer.cs" />
+    <Compile Include="AFKPlayer\AfkPlayerFactory.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="EventHandler.cs" />
+    <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="SCPSLAfkCheck\packages.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

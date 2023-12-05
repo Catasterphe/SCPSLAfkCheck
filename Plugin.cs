@@ -11,13 +11,14 @@ namespace SCPSLAfkCheck
         [PluginConfig] public Config Config;
 
         [PluginPriority(PluginAPI.Enums.LoadPriority.High)]
-        [PluginEntryPoint("AFK Checker", Version, ".", "Aster")]
+        [PluginEntryPoint("SCPSL AFK Checker", Version, ".", "Aster")]
         public void LoadPlugin()
         {
             Singleton = this;
             EventManager.RegisterEvents<EventHandler>(this);
             var handler = PluginHandler.Get(this);
             handler.LoadConfig(this, nameof(PluginConfig));
+            FactoryManager.RegisterPlayerFactory(this, new AfkPlayerFactory());
 
             Log.Info($"Plugin {handler.PluginName} loaded.");
         }

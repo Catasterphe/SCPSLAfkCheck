@@ -14,7 +14,7 @@ namespace SCPSLAfkCheck
         public bool ReplaceAfks { get; private set; } = true;
         [Description("Messages to display to the user - name is explanatory")]
 
-        public string AFKSpectatorMsg { get; private set; } = "You have been set to spectator for being afk.";
+        public string AFKSpectatorMsg { get; private set; } = "You have been set to spectator for being AFK.";
         public string AfkWarningMsg { get; private set; } = "You will be replaced in <color=red>%x% seconds</color> if you do not move!";
         public string AfkReplaceMsg { get; private set; } = "You were detected as AFK and automatically replaced.";
         public string AfkKickMsg { get; private set; } = "You were kicked for being AFK.";
