@@ -32,30 +32,38 @@ namespace SCPSLAfkCheck
         public bool playerIs079 => RoleBase is Scp079Role || ReferenceHub.GetRoleId() == RoleTypeId.Scp079;
         public AfkData GetReplacementData()
         {
-            AfkData afkData = new AfkData
+            if (!playerIs079)
+            {
+                return new AfkData
+                {
+                    Inventory = this.Items.Select(item => item.ItemTypeId).ToList(),
+                    currentAmmo = new Dictionary<ItemType, ushort>(AmmoBag),
+                    replacementPosition = this.Position,
+                    currentHP = this.Health,
+                    currentAH = this.ArtificialHealth,
+                    currentRole = this.Role,
+                    Scp079Data = null
+                };
+            }
+
+            var scp079Role = (Scp079Role)RoleBase;
+            scp079Role.SubroutineModule.TryGetSubroutine<Scp079TierManager>(out Scp079TierManager tierManager);
+            scp079Role.SubroutineModule.TryGetSubroutine<Scp079AuxManager>(out Scp079AuxManager auxManager);
+
+            return new AfkData
             {
                 Inventory = this.Items.Select(item => item.ItemTypeId).ToList(),
-                currentAmmo = new Dictionary<ItemType, ushort>(),
+                currentAmmo = new Dictionary<ItemType, ushort>(AmmoBag),
                 replacementPosition = this.Position,
                 currentHP = this.Health,
                 currentAH = this.ArtificialHealth,
                 currentRole = this.Role,
-                Scp079Data = null
-            };
-            // get ammo
-            AmmoBag.ToList().ForEach(ammo => { afkData.currentAmmo.Add(ammo.Key, ammo.Value); });
-            if (playerIs079)
-            {
-                (RoleBase as Scp079Role).SubroutineModule.TryGetSubroutine<Scp079TierManager>(out Scp079TierManager tierManager);
-                (RoleBase as Scp079Role).SubroutineModule.TryGetSubroutine<Scp079AuxManager>(out Scp079AuxManager auxManager);
-
-                afkData.Scp079Data = new Scp079Data
+                Scp079Data = new Scp079Data
                 {
                     totalExp = tierManager.TotalExp,
                     currentAux = auxManager.CurrentAux
-                };
-            }
-            return afkData;
+                }
+            };
         }
 
         public bool SetReplacementData(AfkData dataToGive)

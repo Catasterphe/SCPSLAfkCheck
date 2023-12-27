@@ -33,24 +33,19 @@ namespace SCPSLAfkCheck
 
         private bool checkMovement()
         {
-            bool hasMoved;
-
             if (checkingPlayer.playerIs079)
             {
-                Scp079Role scp079Base = checkingPlayer.RoleBase as Scp079Role;
-                hasMoved = scp079Base.CameraPosition != lastPosition ||
-                           scp079Base.CurrentCamera != last079Camera ||
-                           scp079Base.RollRotation != last079Roll;
+                Scp079Role scp079Base = (Scp079Role)checkingPlayer.RoleBase;
+                return scp079Base.CameraPosition != lastPosition ||
+                       scp079Base.CurrentCamera != last079Camera ||
+                       scp079Base.RollRotation != last079Roll && UpdateLastPositions();
             }
             else
             {
-                hasMoved = checkingPlayer.Position != lastPosition ||
-                           checkingPlayer.Rotation != lastRotation ||
-                           checkingPlayer.Camera.rotation != lastCameraRotation;
+                return checkingPlayer.Position != lastPosition ||
+                       checkingPlayer.Rotation != lastRotation ||
+                       checkingPlayer.Camera.rotation != lastCameraRotation && UpdateLastPositions();
             }
-
-            hasMoved = hasMoved ? UpdateLastPositions() : false;
-            return hasMoved;
         }
         private bool UpdateLastPositions()
         {
@@ -100,7 +95,7 @@ namespace SCPSLAfkCheck
             if (roleBase == null || roleBase != checkingPlayer.RoleBase)
             {
                 roleBase = checkingPlayer.RoleBase;
-            }
+            }   
             switch (roleBase.RoleTypeId)
             {
                 case RoleTypeId.Tutorial:
@@ -111,7 +106,7 @@ namespace SCPSLAfkCheck
                     // since spectators+overwatch are not alive, and Tutorial is usually an admin sit.
                     return;
                 case RoleTypeId.Scp096:
-                    if (checkMovement() || (roleBase as Scp096Role).IsAbilityState(Scp096AbilityState.TryingNotToCry))
+                    if (checkMovement() || ((Scp096Role)roleBase).IsAbilityState(Scp096AbilityState.TryingNotToCry))
                     {
                         afkTime = 0;
                         return;
